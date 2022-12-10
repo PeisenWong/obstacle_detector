@@ -1,0 +1,44 @@
+<launch>
+    <node name="front_scan"          pkg="robopeak"  type="front_scan" output="screen">
+      <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+      <param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+      <!--param name="serial_baudrate"     type="int"    value="256000"--><!--A3 -->
+      <param name="frame_id"            type="string" value="front_scanner"/>
+      <param name="inverted"            type="bool"   value="false"/>
+      <param name="angle_compensate"    type="bool"   value="true"/>
+    </node>
+
+    <node name="rear_scan"          pkg="robopeak"  type="rear_scan" output="screen">
+      <param name="serial_port"         type="string" value="/dev/ttyUSB1"/>
+      <param name="serial_baudrate"     type="int"    value="115200"/><!--A1/A2 -->
+      <!--param name="serial_baudrate"     type="int"    value="256000"--><!--A3 -->
+      <param name="frame_id"            type="string" value="rear_scanner"/>
+      <param name="inverted"            type="bool"   value="false"/>
+      <param name="angle_compensate"    type="bool"   value="true"/>
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="front_scanner_to_base" args="0.4 0 0 0 0 0 robot front_scanner 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
+    <node pkg="tf" type="static_transform_publisher" name="rear_scanner_to_base" args="-0.4 0 0 0 0 0 robot rear_scanner 100" />
+
+    <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
+        <param name="active"            value="true"/>
+        <param name="publish_scan"      value="true"/>
+        <param name="publish_pcl"       value="true"/>
+
+        <param name="ranges_num"        value="1000"/>
+
+        <param name="min_scanner_range" value="0.05"/>
+        <param name="max_scanner_range" value="10.0"/>
+
+        <param name="min_x_range"       value="-10.0"/>
+        <param name="max_x_range"       value="10.0"/>
+        <param name="min_y_range"       value="-10.0"/>
+        <param name="max_y_range"       value="10.0"/>
+
+        <param name="fixed_frame_id"   value="map"/>
+        <param name="target_frame_id"   value="robot"/>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/>
+</launch>
