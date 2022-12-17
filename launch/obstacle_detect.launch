@@ -112,15 +112,15 @@
     <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
 
     <!-- Map Generation -->
-    <node name="map" pkg="position" type="map">
+    <!-- <node name="map" pkg="position" type="map">
         <param name="X" value="-0.115"/>
         <param name="Y" value="0.15"/>
         <param name="Z" value="-0.05"/>
         <param name="Yaw" value="-1.57"/>
-    </node>
+    </node> -->
 
     <!-- Process obstacle data -->
-    <node name="process" pkg="position" type="obstacle" output="screen"/>
-    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/>
+    <!-- <node name="process" pkg="position" type="obstacle" output="screen"/> -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/> -->
 
 </launch>
