@@ -9,11 +9,26 @@
         <param name="angle_compensate"    type="bool"   value="true"/>
         <remap from="scan" to="front_scan"/>
     </node>
+    
+    <!-- <node name="front_scan"          pkg="robopeak"  type="front_scan" output="screen">
+        <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+        <param name="serial_baudrate"     type="int"    value="115200"/>
+        <param name="frame_id"            type="string" value="front_scanner"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+    </node> -->
+    
+    <!-- Filter out laser scan range (Filter data from topic /scan to /scan_filtered)-->
+    <!-- <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen" name="laser_filter">
+        <rosparam command="load" file="$(find obstacle_detector)/param/angle_filter_angle.yaml" />
+        <param name="tf_message_filter_target_frame" value="front_scanner"/>
+        <remap from="scan" to="front_scan"/>
+    </node> -->
 
     <!-- Scan Merger (Take data from topic /scan_filtered as input) -->
     <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
         <param name="active"            value="true"/>
-        <param name="publish_scan"      value="false"/>
+        <param name="publish_scan"      value="true"/>
         <param name="publish_pcl"       value="true"/>
 
         <param name="ranges_num"        value="1000"/>
@@ -35,7 +50,7 @@
     <!-- Obstacle Extraction -->
     <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
         <param name="active"               value="true"/>
-        <param name="use_scan"             value="false"/>
+        <param name="use_scan"             value="true"/>
         <param name="use_pcl"              value="true"/>
 
         <param name="use_split_and_merge"    value="true"/>
@@ -103,6 +118,16 @@
     <node pkg="tf" type="static_transform_publisher" name="front_scanner_to_base" args="0 0 0 0 0 0 robot front_scanner 100" />
     <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
 
+    <!-- Map Generation -->
+    <node name="map" pkg="position" type="map">
+        <param name="X" value="-0.115"/>
+        <param name="Y" value="0.15"/>
+        <param name="Z" value="-0.05"/>
+        <param name="Yaw" value="-1.57"/>
+    </node>
+
+    <!-- Process obstacle data -->
     <!-- <node name="process" pkg="position" type="obstacle" output="screen"/> -->
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/>
 
 </launch>
