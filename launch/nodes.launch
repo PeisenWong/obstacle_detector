@@ -85,5 +85,9 @@
     <param name="frame_id"         value="map"/>
   </node>
 
+      <!-- Static transform publisher -->
+    <node pkg="tf" type="static_transform_publisher" name="front_scanner_to_base" args="0 0 0 0 0 0 robot front_scanner 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
+    
 </launch>
 <!-- -->
