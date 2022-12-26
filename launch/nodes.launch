@@ -6,6 +6,7 @@
       <param name="frame_id"            type="string" value="front_scanner"/>
       <param name="inverted"            type="bool"   value="false"/>
       <param name="angle_compensate"    type="bool"   value="true"/>
+      <remap from="scan" to="front_scan"/>
   </node>
   <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
     <param name="active"            value="true"/>
