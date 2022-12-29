@@ -118,11 +118,11 @@ bool ObstacleExtractor::updateParams(std_srvs::Empty::Request &req, std_srvs::Em
     if (p_active_)
     {
       if (p_use_scan_)
-        scan_sub_ = nh_.subscribe("scan", 10, &ObstacleExtractor::scanCallback, this);
+        scan_sub_ = nh_.subscribe("scan", 1000, &ObstacleExtractor::scanCallback, this);
       else if (p_use_pcl_)
-        pcl_sub_ = nh_.subscribe("pcl", 10, &ObstacleExtractor::pclCallback, this);
+        pcl_sub_ = nh_.subscribe("pcl", 1000, &ObstacleExtractor::pclCallback, this);
 
-      obstacles_pub_ = nh_.advertise<obstacle_detector::Obstacles>("raw_obstacles", 10);
+      obstacles_pub_ = nh_.advertise<obstacle_detector::Obstacles>("raw_obstacles", 1000);
     }
     else
     {
