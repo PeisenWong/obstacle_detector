@@ -12,4 +12,8 @@ int main(int argc, char **argv)
     ros::NodeHandle nh;
 
     ros::Subscriber sub = nh.subscribe("scan", 1000, scanCallBack);
+
+    ros::spin();
+
+    return 0;
 }

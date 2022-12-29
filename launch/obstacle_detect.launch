@@ -47,7 +47,8 @@
         <!-- <remap from="front_scan" to="scan_filtered"/>  Input /scan_filtered -->
     </node>
 
-    <node name="try" pkg="obstacle_detector" type="testing" output="screen" />
+    <node name="try" pkg="obstacle_detector" type="testing" output="screen"></node>
+
     <!-- Obstacle Extraction -->
     <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
         <param name="active"               value="true"/>

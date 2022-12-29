@@ -54,6 +54,7 @@ target_link_libraries(obstacle_publisher_node obstacle_publisher)
 
 add_executable(testing src/test.cpp)
 target_link_libraries(testing ${catkin_LIBRARIES})
+add_dependencies(testing ${catkin_EXPORTED_TARGETS})
 
 #
 # Install libraries
