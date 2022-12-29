@@ -47,10 +47,10 @@ ObstacleExtractor::ObstacleExtractor(ros::NodeHandle &nh, ros::NodeHandle &nh_lo
   // params_srv_ = nh_local_.advertiseService("params", &ObstacleExtractor::updateParams, this);
   // initialize();
 
-  scan_sub_ = nh_.subscribe("scan", 1000, &ObstacleExtractor::scanCallback, this);
-  pcl_sub_ = nh_.subscribe("pcl", 1000, &ObstacleExtractor::pclCallback, this);
+  // scan_sub_ = nh_.subscribe("scan", 1000, &ObstacleExtractor::scanCallback, this);
+  // pcl_sub_ = nh_.subscribe("pcl", 1000, &ObstacleExtractor::pclCallback, this);
 
-  obstacles_pub_ = nh_.advertise<obstacle_detector::Obstacles>("raw_obstacles", 1000);
+  // obstacles_pub_ = nh_.advertise<obstacle_detector::Obstacles>("raw_obstacles", 1000);
 }
 
 ObstacleExtractor::~ObstacleExtractor()
