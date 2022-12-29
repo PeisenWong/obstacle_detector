@@ -7,7 +7,7 @@
         <param name="frame_id"            type="string" value="front_scanner"/>
         <param name="inverted"            type="bool"   value="false"/>
         <param name="angle_compensate"    type="bool"   value="true"/>
-        <remap from="scan" to="front_scan"/>
+        <!-- <remap from="scan" to="front_scan"/> -->
     </node>
 
     <!-- Scan Merger (Take data from topic /scan_filtered as input) -->
