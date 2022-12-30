@@ -56,7 +56,7 @@ Segment fitSegment(const PointSet& point_set) {
   num_calls++;
 
   int N = point_set.num_points;
-  // assert(N >= 2);
+  assert(N >= 2);
 
   arma::mat input  = arma::mat(N, 2).zeros();  // [x_i, y_i]
   arma::vec output = arma::vec(N).ones();      // [-C]
@@ -111,7 +111,7 @@ Segment fitSegment(const std::vector<PointSet>& point_sets) {
   for (PointSet ps : point_sets)
     N += ps.num_points;
 
-  // assert(N >= 2);
+  assert(N >= 2);
 
   arma::mat input  = arma::mat(N, 2).zeros();  // [x_i, y_i]
   arma::vec output = arma::vec(N).ones();      // [-C]
