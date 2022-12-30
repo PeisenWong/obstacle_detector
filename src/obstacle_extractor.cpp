@@ -225,7 +225,7 @@ void ObstacleExtractor::groupPoints()
       if (abs(sin_d) < sin_dp && range < prev_range)
         point_set.is_visible = false;
 
-      detectSegments(point_set);
+      //detectSegments(point_set);
 
       // Begin new point set
       point_set.begin = point;
@@ -235,7 +235,7 @@ void ObstacleExtractor::groupPoints()
     }
   }
 
-  detectSegments(point_set); // Check the last point set too!
+  //detectSegments(point_set); // Check the last point set too!
 }
 
 void ObstacleExtractor::detectSegments(const PointSet &point_set)
