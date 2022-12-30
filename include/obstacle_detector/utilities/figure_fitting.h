@@ -34,7 +34,7 @@
  */
 
 #pragma once
-
+#define ARMA_32BIT_WORD
 #include <armadillo>
 
 #include "obstacle_detector/utilities/point.h"
