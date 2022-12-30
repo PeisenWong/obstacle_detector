@@ -161,7 +161,7 @@ void ObstacleExtractor::scanCallback(const sensor_msgs::LaserScan::ConstPtr scan
     phi += scan_msg->angle_increment;
   }
 
-  // processPoints();
+  processPoints();
 }
 
 void ObstacleExtractor::pclCallback(const sensor_msgs::PointCloud::ConstPtr pcl_msg)
@@ -181,14 +181,14 @@ void ObstacleExtractor::processPoints()
   circles_.clear();
 
   groupPoints(); // Grouping points simultaneously detects segments
-  mergeSegments();
+  // mergeSegments();
 
-  detectCircles();
-  mergeCircles();
+  // detectCircles();
+  // mergeCircles();
 
-  publishObstacles();
+  // publishObstacles();
 
-  input_points_.clear();
+  // input_points_.clear();
 }
 
 void ObstacleExtractor::groupPoints()
