@@ -225,7 +225,7 @@ void ObstacleExtractor::groupPoints()
       if (abs(sin_d) < sin_dp && range < prev_range)
         point_set.is_visible = false;
 
-      //detectSegments(point_set);
+      detectSegments(point_set);
 
       // Begin new point set
       point_set.begin = point;
@@ -235,7 +235,7 @@ void ObstacleExtractor::groupPoints()
     }
   }
 
-  //detectSegments(point_set); // Check the last point set too!
+  detectSegments(point_set); // Check the last point set too!
 }
 
 void ObstacleExtractor::detectSegments(const PointSet &point_set)
@@ -246,7 +246,7 @@ void ObstacleExtractor::detectSegments(const PointSet &point_set)
   Segment segment(*point_set.begin, *point_set.end); // Use Iterative End Point Fit
 
   if (p_use_split_and_merge_)
-    segment = fitSegment(point_set);
+    // segment = fitSegment(point_set);
 
   PointIterator set_divider;
   double max_distance = 0.0;
@@ -295,7 +295,7 @@ void ObstacleExtractor::detectSegments(const PointSet &point_set)
   else
   { // Add the segment
     if (!p_use_split_and_merge_)
-      segment = fitSegment(point_set);
+      // segment = fitSegment(point_set);
 
     segments_.push_back(segment);
   }
