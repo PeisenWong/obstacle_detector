@@ -161,7 +161,7 @@ void ObstacleExtractor::scanCallback(const sensor_msgs::LaserScan::ConstPtr scan
     phi += scan_msg->angle_increment;
   }
 
-  processPoints();
+  // processPoints();
 }
 
 void ObstacleExtractor::pclCallback(const sensor_msgs::PointCloud::ConstPtr pcl_msg)
