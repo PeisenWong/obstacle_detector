@@ -245,8 +245,8 @@ void ObstacleExtractor::detectSegments(const PointSet &point_set)
 
   Segment segment(*point_set.begin, *point_set.end); // Use Iterative End Point Fit
 
-  // if (p_use_split_and_merge_)
-  //   segment = fitSegment(point_set);
+  if (p_use_split_and_merge_)
+    segment = fitSegment(point_set);
 
   PointIterator set_divider;
   double max_distance = 0.0;
@@ -295,7 +295,7 @@ void ObstacleExtractor::detectSegments(const PointSet &point_set)
   else
   { // Add the segment
     if (!p_use_split_and_merge_)
-      // segment = fitSegment(point_set);
+      segment = fitSegment(point_set);
 
     segments_.push_back(segment);
   }
