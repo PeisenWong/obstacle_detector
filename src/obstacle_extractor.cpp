@@ -176,14 +176,14 @@ void ObstacleExtractor::processPoints()
   circles_.clear();
 
   groupPoints(); // Grouping points simultaneously detects segments
-  // mergeSegments();
+  mergeSegments();
 
-  // detectCircles();
-  // mergeCircles();
+  detectCircles();
+  mergeCircles();
 
-  // publishObstacles();
+  publishObstacles();
 
-  // input_points_.clear();
+  input_points_.clear();
 }
 
 void ObstacleExtractor::groupPoints()
