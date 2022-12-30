@@ -58,23 +58,23 @@ Segment fitSegment(const PointSet& point_set) {
   int N = point_set.num_points;
   assert(N >= 2);
 
-  // arma::mat input  = arma::mat(N, 2).zeros();  // [x_i, y_i]
-  // arma::vec output = arma::vec(N).ones();      // [-C]
-  // arma::vec params = arma::vec(2).zeros();     // [A ; B]
+  arma::mat input  = arma::mat(N, 2).zeros();  // [x_i, y_i]
+  arma::vec output = arma::vec(N).ones();      // [-C]
+  arma::vec params = arma::vec(2).zeros();     // [A ; B]
 
   PointIterator point = point_set.begin;
   for (int i = 0; i < N; ++i) {
-    // input(i, 0) = point->x;
-    // input(i, 1) = point->y;
+    input(i, 0) = point->x;
+    input(i, 1) = point->y;
     std::advance(point, 1);
   }
 
   // Find A and B coefficients from linear regression (assuming C = -1.0)
-  // params = arma::pinv(input) * output;
+  params = arma::pinv(input) * output;
 
   double A, B, C;
-  // A = params(0);
-  // B = params(1);
+  A = params(0);
+  B = params(1);
   C = -1.0;
 
   // Find end points
@@ -90,14 +90,14 @@ Segment fitSegment(const PointSet& point_set) {
   if (D > 0.0) {
     Point projected_p1, projected_p2;
 
-    // projected_p1.x = ( B * B * p1.x - A * B * p1.y - A * C) / D;
-    // projected_p1.y = (-A * B * p1.x + A * A * p1.y - B * C) / D;
+    projected_p1.x = ( B * B * p1.x - A * B * p1.y - A * C) / D;
+    projected_p1.y = (-A * B * p1.x + A * A * p1.y - B * C) / D;
 
-    // projected_p2.x = ( B * B * p2.x - A * B * p2.y - A * C) / D;
-    // projected_p2.y = (-A * B * p2.x + A * A * p2.y - B * C) / D;
+    projected_p2.x = ( B * B * p2.x - A * B * p2.y - A * C) / D;
+    projected_p2.y = (-A * B * p2.x + A * A * p2.y - B * C) / D;
 
-    // segment.first_point = projected_p1;
-    // segment.last_point = projected_p2;
+    segment.first_point = projected_p1;
+    segment.last_point = projected_p2;
   }
 
    return segment;
