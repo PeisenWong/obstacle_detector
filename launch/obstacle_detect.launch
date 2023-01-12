@@ -9,6 +9,21 @@
         <param name="angle_compensate"    type="bool"   value="true"/>
         <remap from="scan" to="front_scan"/>
     </node>
+    
+    <!-- <node name="front_scan"          pkg="robopeak"  type="front_scan" output="screen">
+        <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+        <param name="serial_baudrate"     type="int"    value="115200"/>
+        <param name="frame_id"            type="string" value="front_scanner"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+    </node> -->
+    
+    <!-- Filter out laser scan range (Filter data from topic /scan to /scan_filtered)-->
+    <!-- <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen" name="laser_filter">
+        <rosparam command="load" file="$(find obstacle_detector)/param/angle_filter_angle.yaml" />
+        <param name="tf_message_filter_target_frame" value="front_scanner"/>
+        <remap from="scan" to="front_scan"/>
+    </node> -->
 
     <!-- Scan Merger (Take data from topic /scan_filtered as input) -->
     <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
@@ -29,6 +44,7 @@
         <param name="fixed_frame_id"   value="map"/>
         <param name="target_frame_id"   value="robot"/>
 
+        <!-- <remap from="front_scan" to="scan_filtered"/>  Input /scan_filtered -->
     </node>
 
     <!-- Obstacle Extraction -->
@@ -49,11 +65,16 @@
         <param name="max_split_distance"   value="0.2"/>
         <param name="max_merge_separation" value="0.2"/>
         <param name="max_merge_spread"     value="0.2"/>
-        <param name="max_circle_radius"    value="0.08"/>
+        <param name="max_circle_radius"    value="0.07"/>
         <param name="min_circle_radius"    value="0.05"/>
         <param name="max_circle_radius2"    value="0.09"/>
         <param name="min_circle_radius2"    value="0.08"/>
         <param name="radius_enlargement"   value="0.3"/>
+
+        <param name="min_x_limit"    value="-3.0"/>
+        <param name="min_y_limit"    value="-3.0"/>
+        <param name="max_x_limit"    value="3.0"/>
+        <param name="max_y_limit"    value="3.0"/>
 
         <param name="frame_id"             value="front_scanner"/>
     </node>
@@ -75,7 +96,7 @@
 
     <!-- Obstacle Publisher -->
     <node name="obstacle_publisher" pkg="obstacle_detector" type="obstacle_publisher_node">
-        <param name="active"           value="false"/>
+        <param name="active"           value="true"/>
         <param name="reset"            value="false"/>
 
         <param name="fusion_example"   value="false"/>
@@ -97,6 +118,16 @@
     <node pkg="tf" type="static_transform_publisher" name="front_scanner_to_base" args="0 0 0 0 0 0 robot front_scanner 100" />
     <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
 
+    <!-- Map Generation -->
+    <node name="map" pkg="position" type="map">
+        <param name="X" value="-0.115"/>
+        <param name="Y" value="0.15"/>
+        <param name="Z" value="-0.05"/>
+        <param name="Yaw" value="-1.57"/>
+    </node>
+
     <!-- Process obstacle data -->
     <node name="process" pkg="position" type="obstacle" output="screen"/>
+    <!-- <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/> -->
+
 </launch>
