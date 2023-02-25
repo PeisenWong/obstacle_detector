@@ -103,6 +103,6 @@
     <node pkg="tf" type="static_transform_publisher" name="base_to_map" args="0 0 0 0 0 0 map robot 100" />
 
     <!-- Process obstacle data -->
-    <!-- <node name="process" pkg="position" type="obstacle" output="screen"/> -->
+    <node name="process" pkg="position" type="obstacle" output="screen"/>
 
 </launch>
