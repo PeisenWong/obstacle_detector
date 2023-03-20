@@ -95,7 +95,7 @@ bool ScansMerger::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty::R
     if (p_active_) {
       front_scan_sub_ = nh_.subscribe("front_scan", 10, &ScansMerger::frontScanCallback, this);
       rear_scan_sub_ = nh_.subscribe("rear_scan", 10, &ScansMerger::rearScanCallback, this);
-      scan_pub_ = nh_.advertise<sensor_msgs::LaserScan>("scan", 10);
+      scan_pub_ = nh_.advertise<sensor_msgs::LaserScan>("scan", 1000);
       pcl_pub_ = nh_.advertise<sensor_msgs::PointCloud>("pcl", 10);
     }
     else {
